@@ -41,7 +41,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
-      filter: blur(80px);
+      
       will-change: transform;
     }
     .bg-orb-1 {
@@ -85,21 +85,21 @@
     .bg-orb-1 {
       width: 700px; height: 700px;
       background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
-      filter: blur(60px);
+      
       top: -200px; left: -200px;
       animation: float1 10s ease-in-out infinite;
     }
     .bg-orb-2 {
       width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(180,180,255,0.06) 0%, transparent 70%);
-      filter: blur(80px);
+      
       bottom: 0; right: -150px;
       animation: float2 12s ease-in-out infinite;
     }
     .bg-orb-3 {
       width: 400px; height: 400px;
       background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-      filter: blur(60px);
+      
       top: 40%; left: 40%;
       animation: float1 9s ease-in-out 2s infinite;
     }
@@ -184,8 +184,8 @@
       justify-content: space-between;
       padding: 0 24px;
       background: rgba(14,14,14,0.8);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
+      /* removed */
+      -webkit-/* removed */
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
       animation: slideDown 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
@@ -296,7 +296,7 @@
       z-index: 1;
       opacity: 0;
       animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
-      backdrop-filter: blur(8px);
+      /* removed */
     }
     .badge-dot {
       width: 6px; height: 6px;
@@ -383,7 +383,7 @@
       background: var(--glass);
       color: var(--muted3);
       border: 1px solid var(--border);
-      backdrop-filter: blur(8px);
+      /* removed */
     }
     .btn-glass:hover {
       border-color: var(--border-h);
@@ -455,7 +455,7 @@
       overflow: hidden;
       max-width: 600px;
       width: 100%;
-      backdrop-filter: blur(12px);
+      /* removed */
       transition: border-color 0.3s;
     }
     .loader-box:hover { border-color: var(--border-h); }
@@ -542,7 +542,7 @@
       border-radius: var(--r-lg);
       padding: 32px 28px;
       transition: background 0.3s, border-color 0.3s, transform 0.3s;
-      backdrop-filter: blur(8px);
+      /* removed */
     }
     .stat-card:hover {
       background: rgba(255,255,255,0.06);
@@ -610,7 +610,7 @@
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
       padding: 32px 28px;
-      backdrop-filter: blur(8px);
+      /* removed */
       transition: background 0.3s cubic-bezier(0.4,0,0.2,1),
                   border-color 0.3s,
                   transform 0.35s cubic-bezier(0.4,0,0.2,1),
@@ -676,7 +676,7 @@
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
       padding: 28px;
-      backdrop-filter: blur(8px);
+      /* removed */
       transition: background 0.3s, border-color 0.3s,
                   transform 0.35s cubic-bezier(0.4,0,0.2,1),
                   box-shadow 0.35s;
@@ -794,15 +794,16 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: var(--r-xl);
-      padding: 72px 64px;
+      padding: 24px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 40px;
-      backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
       transition: border-color 0.4s, box-shadow 0.4s;
+      max-width: 780px;
+      margin: 0 auto;
     }
     .cta-card:hover {
       border-color: var(--border-h);
@@ -829,11 +830,11 @@
       transform: translateY(-50%);
     }
     .cta-title {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
       font-weight: 800;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       color: var(--white);
-      line-height: 1.15;
+      line-height: 1.2;
       position: relative;
     }
     .cta-sub {
@@ -841,6 +842,17 @@
       font-size: 0.88rem;
       color: var(--muted2);
       position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #4ade80;
+      flex-shrink: 0;
+      animation: pulseDot 2s ease-in-out infinite;
     }
 
     /* ════════════════════════════════════
@@ -1109,7 +1121,10 @@
       <div class="cta-ghost">VOID</div>
       <div>
         <div class="cta-title">Join the community.<br/>Get early access.</div>
-        <div class="cta-sub">5,000+ members. Exclusive scripts, direct dev support, and more.</div>
+        <div class="cta-sub">
+          <span class="live-dot"></span>
+          <span id="member-count">...</span><span id="member-text"> members online now</span>
+        </div>
       </div>
       <a href="https://discord.gg/fEJNTRyWq" target="_blank" class="btn btn-white" style="flex-shrink:0; position:relative; z-index:1;">
         Join Discord →
@@ -1132,6 +1147,29 @@
   <div id="toast">✓ &nbsp;Copied to clipboard</div>
 
   <script>
+    // ── Live Discord Members via Invite API ──
+    async function fetchMembers() {
+      try {
+        const res = await fetch('https://discord.com/api/v9/invites/fEJNTRyWq?with_counts=true');
+        const data = await res.json();
+        const online = data.approximate_presence_count;
+        const total  = data.approximate_member_count;
+        const el  = document.getElementById('member-count');
+        const el2 = document.getElementById('member-text');
+        if (el && total) {
+          el.textContent = total.toLocaleString();
+          if (el2) el2.textContent = ` members · ${online.toLocaleString()} online`;
+        }
+      } catch(e) {
+        const el  = document.getElementById('member-count');
+        const el2 = document.getElementById('member-text');
+        if (el)  el.textContent  = '';
+        if (el2) el2.textContent = '';
+      }
+    }
+    fetchMembers();
+    setInterval(fetchMembers, 60000);
+
     // ── Copy Loader ──
     function copyLoader() {
       const text = document.getElementById('loader-text').textContent;
@@ -1173,18 +1211,21 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    // ── Mouse Glow — direkt, kein Lag ──
+    // ── Mouse Glow — throttled ──
     const glow = document.getElementById('mouse-glow');
-
+    let ticking = false;
     document.addEventListener('mousemove', (e) => {
-      glow.style.left = e.clientX + 'px';
-      glow.style.top  = e.clientY + 'px';
-      glow.style.opacity = '1';
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          glow.style.left = e.clientX + 'px';
+          glow.style.top  = e.clientY + 'px';
+          glow.style.opacity = '1';
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
-
-    document.addEventListener('mouseleave', () => {
-      glow.style.opacity = '0';
-    });
+    document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
 
     // ── Count-Up Animation ──
     function countUp(el, target, suffix, duration = 1800) {
@@ -1229,14 +1270,6 @@
 
     document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
 
-    // ── Subtle parallax on hero ghost ──
-    const ghost = document.querySelector('.hero-ghost');
-    window.addEventListener('mousemove', (e) => {
-      if (!ghost) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 10;
-      ghost.style.transform = `translate(calc(-50% + ${x}px), calc(-52% + ${y}px))`;
-    });
   </script>
 </body>
 </html>

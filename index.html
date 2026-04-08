@@ -158,9 +158,9 @@
 
     .hero {
       position: relative; z-index: 1;
-      min-height: 100vh;
+      min-height: 80vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 100px 24px 80px; overflow: hidden;
+      text-align: center; padding: 100px 24px 20px; overflow: hidden;
     }
 
     .hero-ghost {
@@ -253,7 +253,7 @@
     .loader-section {
       position: relative; z-index: 1;
       display: flex; flex-direction: column; align-items: center; gap: 12px;
-      padding: 0 24px 60px; opacity: 0;
+      padding: 0 24px 30px; opacity: 0;
       animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
     }
     .loader-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted2); }
@@ -299,22 +299,6 @@
     }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ── STATS ── */
-    .stats-section {
-      position: relative; z-index: 1; padding: 80px 40px;
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-    }
-    .stat-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 32px 28px;
-      transition: background 0.3s, border-color 0.3s, transform 0.3s;
-      backdrop-filter: blur(10px);
-    }
-    .stat-card:hover { background: rgba(255,255,255,0.06); border-color: var(--border-h); transform: translateY(-4px); }
-    .stat-num { font-size: 2.6rem; font-weight: 800; color: var(--white); letter-spacing: -2px; line-height: 1; }
-    .stat-label { margin-top: 8px; font-size: 0.75rem; color: var(--muted2); font-weight: 500; }
-
     /* ── SECTION ── */
     .section { position: relative; z-index: 1; padding: 0 40px 100px; max-width: 1100px; margin: 0 auto; }
     .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted2); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
@@ -323,10 +307,10 @@
     .section-desc { font-size: 0.92rem; color: var(--muted2); max-width: 460px; line-height: 1.7; margin-bottom: 48px; }
 
     /* ── FEATURES ── */
-    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .feature-card {
       background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 32px 28px;
+      border-radius: 20px; padding: 20px 18px;
       backdrop-filter: blur(10px);
       transition: background 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s,
                   transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s;
@@ -337,17 +321,17 @@
       background: radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 60%);
       opacity: 0; transition: opacity 0.3s;
     }
-    .feature-card:hover { background: rgba(255,255,255,0.07); border-color: var(--border-h); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+    .feature-card:hover { background: rgba(255,255,255,0.07); border-color: var(--border-h); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
     .feature-card:hover::before { opacity: 1; }
 
     .feature-icon {
-      width: 40px; height: 40px; border: 1px solid var(--border); border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-      margin-bottom: 20px; background: var(--glass); transition: border-color 0.3s, transform 0.3s;
+      width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+      margin-bottom: 14px; background: var(--glass); transition: border-color 0.3s, transform 0.3s;
     }
     .feature-card:hover .feature-icon { border-color: var(--border-h); transform: scale(1.08); }
-    .feature-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-    .feature-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.65; }
+    .feature-name { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .feature-desc { font-size: 0.75rem; color: var(--muted2); line-height: 1.6; }
 
     /* ── UPDATES ── */
     .updates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 16px; }
@@ -471,7 +455,6 @@
     @media (max-width: 900px) {
       nav { width: calc(100% - 24px); padding: 0 16px; }
       .nav-links { display: none; }
-      .stats-section { grid-template-columns: repeat(2,1fr); padding: 48px 20px; }
       .feature-grid { grid-template-columns: 1fr; }
       .cta-card { flex-direction: column; padding: 48px 32px; }
       .cta-ghost { display: none; }
@@ -481,7 +464,6 @@
     }
     @media (max-width: 600px) {
       .hero-title { letter-spacing: -2px; }
-      .stats-section { grid-template-columns: 1fr 1fr; gap: 8px; }
     }
   </style>
 </head>
@@ -511,26 +493,23 @@
     <div class="hero-ghost">VOID</div>
     <div class="hero-badge">
       <div class="badge-dot"></div>
-      v2.0 &nbsp;—&nbsp; Now Live
+      v1.4 &nbsp;—&nbsp; Now Live
     </div>
     <h1 class="hero-title">
       VOID<br/>
       <span class="dim">Best Script Hub.</span>
     </h1>
     <p class="hero-sub">
-      Premium Roblox scripts. Clean, fast, and undetected.<br/>Built for players who demand more.
+      Clean. Fast. Undetected.
     </p>
     <div class="hero-btns">
-      <a href="#features" class="btn btn-white">Explore →</a>
-      <a href="#discord" class="btn btn-glass">Join Discord</a>
+      <a href="#features" class="btn btn-glass">Explore</a>
+      <a href="#discord" class="btn btn-glass">Discord</a>
     </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
+
   </div>
 
-  <!-- LOADER COPY — ✅ NEUER LINK -->
+  <!-- LOADER COPY -->
   <div class="loader-section">
     <div class="loader-label">VOID Hub — Universal Loader</div>
     <div class="loader-box">
@@ -564,28 +543,8 @@
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-section stagger">
-    <div class="stat-card">
-      <div class="stat-num" data-val="50" data-suffix="+">50+</div>
-      <div class="stat-label">Scripts available</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-val="10" data-suffix="k+">10k+</div>
-      <div class="stat-label">Active users</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-val="99" data-suffix="%">99%</div>
-      <div class="stat-label">Undetected rate</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" data-val="24" data-suffix="/7">24/7</div>
-      <div class="stat-label">Support & updates</div>
-    </div>
-  </div>
-
   <!-- FEATURES -->
-  <div class="section" id="features">
+  <div class="section" id="features" style="padding-top: 80px;">
     <h2 class="section-title reveal">Everything you<br/><span class="dim">need to dominate.</span></h2>
     <p class="section-desc reveal">Every script is hand-crafted, stress-tested, and pushed live within hours of every Roblox patch.</p>
 
@@ -682,23 +641,62 @@
           </div>
         </div>
       </div>
+      <div class="credit-card">
+        <div class="credit-avatar">T</div>
+        <div>
+          <div class="credit-name">Thor</div>
+          <div class="credit-role">Content & Dev Coder</div>
+          <div class="credit-tags">
+            <span class="credit-tag">Content</span>
+            <span class="credit-tag">Coding</span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <!-- CTA -->
-  <div class="cta-wrap" id="discord">
-    <div class="cta-card reveal">
-      <div class="cta-ghost">VOID</div>
-      <div>
-        <div class="cta-title">Join the community.<br/>Get early access.</div>
-        <div class="cta-sub">
-          <span class="live-dot"></span>
-          <span id="member-count">...</span><span id="member-text"> members online now</span>
+  <!-- SOCIALS -->
+  <div class="section" id="discord" style="padding-top: 0;">
+    <div class="section-label">Community</div>
+    <h2 class="section-title reveal">Find us <span class="dim">everywhere.</span></h2>
+
+    <div class="credits-grid stagger">
+      <a href="https://discord.gg/fEJNTRyWq" target="_blank" class="credit-card" style="text-decoration:none;">
+        <div class="credit-avatar" style="background:rgba(88,101,242,0.15); border-color:rgba(88,101,242,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865f2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         </div>
-      </div>
-      <a href="https://discord.gg/fEJNTRyWq" target="_blank" class="btn btn-white" style="flex-shrink:0; position:relative; z-index:1;">
-        Join Discord →
+        <div>
+          <div class="credit-name">Discord</div>
+          <div class="credit-role">Join the community</div>
+          <div class="credit-tags">
+            <span class="credit-tag">discord.gg/void</span>
+          </div>
+        </div>
+      </a>
+      <a href="https://youtube.com/@void.scripts.roblox?si=MbOWwljvuWdb5cU8" target="_blank" class="credit-card" style="text-decoration:none;">
+        <div class="credit-avatar" style="background:rgba(255,0,0,0.1); border-color:rgba(255,0,0,0.25);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </div>
+        <div>
+          <div class="credit-name">YouTube</div>
+          <div class="credit-role">Scripts & tutorials</div>
+          <div class="credit-tags">
+            <span class="credit-tag">@void.scripts.roblox</span>
+          </div>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@void.scripts.robl" target="_blank" class="credit-card" style="text-decoration:none;">
+        <div class="credit-avatar" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+        </div>
+        <div>
+          <div class="credit-name">TikTok</div>
+          <div class="credit-role">Clips & updates</div>
+          <div class="credit-tags">
+            <span class="credit-tag">@void.scripts.robl</span>
+          </div>
+        </div>
       </a>
     </div>
   </div>
@@ -780,34 +778,6 @@
       }
     });
     document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
-
-    // ── Count-Up Animation ──
-    function countUp(el, target, suffix, duration = 1800) {
-      let start = 0;
-      const step = timestamp => {
-        if (!start) start = timestamp;
-        const progress = Math.min((timestamp - start) / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(ease * target) + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target + suffix;
-      };
-      requestAnimationFrame(step);
-    }
-
-    const statsObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.stat-num').forEach(el => {
-            countUp(el, parseInt(el.dataset.val), el.dataset.suffix || '');
-          });
-          statsObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) statsObs.observe(statsSection);
 
     // ── Scroll Reveal ──
     const observer = new IntersectionObserver((entries) => {

@@ -64,7 +64,6 @@
     }
     @keyframes slideDown { from{opacity:0;transform:translateX(-50%) translateY(-16px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
     .logo { font-size:.85rem; font-weight:800; letter-spacing:6px; text-transform:uppercase; color:var(--white); flex-shrink:0; }
-    /* nav-top-row: invisible on desktop, used only on mobile */
     .nav-top-row { display:contents; }
     .nav-tabs { display:flex; gap:4px; }
     .nav-tab {
@@ -157,6 +156,173 @@
     .credit-tags { display:flex; flex-wrap:wrap; gap:6px; }
     .credit-tag { font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; border-radius:100px; background:rgba(255,255,255,.05); color:var(--muted2); border:1px solid var(--border); }
 
+    /* ══════════════════════════════════════
+       ── SOUNDS PANEL ──
+    ══════════════════════════════════════ */
+
+    /* Search bar */
+    .sounds-search-wrap { display:flex; align-items:center; gap:10px; margin-bottom:32px; }
+    .sounds-search {
+      flex:1; background:var(--glass); border:1px solid var(--border);
+      border-radius:var(--r-md); padding:12px 18px;
+      font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--white);
+      outline:none; transition:border-color .25s;
+    }
+    .sounds-search::placeholder { color:var(--muted2); }
+    .sounds-search:focus { border-color:var(--border-h); }
+
+    /* Sound grid */
+    .sounds-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
+
+    /* Individual sound card */
+    .sound-card {
+      background:var(--glass); border:1px solid var(--border); border-radius:var(--r-lg);
+      padding:22px 20px; backdrop-filter:blur(10px);
+      transition:background .3s,border-color .3s,transform .3s,box-shadow .3s;
+      position:relative; overflow:hidden;
+    }
+    .sound-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent); }
+    .sound-card:hover { background:rgba(255,255,255,.06); border-color:var(--border-h); transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,.4); }
+    .sound-card.playing { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,.07); }
+
+    .sound-card-top { display:flex; align-items:flex-start; gap:14px; margin-bottom:10px; }
+    .sound-thumb {
+      width:48px; height:48px; border-radius:12px; flex-shrink:0;
+      background:rgba(255,255,255,.06); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden; transition:border-color .3s;
+    }
+    .sound-card.playing .sound-thumb { border-color:rgba(255,255,255,.25); }
+    .sound-thumb-icon { font-size:1.2rem; }
+
+    /* Animated equalizer bars (shown when playing) */
+    .eq-bars { display:flex; align-items:flex-end; gap:2px; height:18px; position:absolute; opacity:0; transition:opacity .3s; }
+    .sound-card.playing .eq-bars { opacity:1; }
+    .sound-card.playing .sound-thumb-icon { opacity:0; }
+    .eq-bar { width:3px; background:#fff; border-radius:2px; animation:eqBounce 0.6s ease-in-out infinite alternate; }
+    .eq-bar:nth-child(1) { height:6px;  animation-delay:0s; }
+    .eq-bar:nth-child(2) { height:14px; animation-delay:0.1s; }
+    .eq-bar:nth-child(3) { height:10px; animation-delay:0.2s; }
+    .eq-bar:nth-child(4) { height:16px; animation-delay:0.15s; }
+    .eq-bar:nth-child(5) { height:8px;  animation-delay:0.05s; }
+    @keyframes eqBounce { from{transform:scaleY(0.4)} to{transform:scaleY(1)} }
+
+    .sound-info { flex:1; min-width:0; }
+    .sound-name { font-size:.9rem; font-weight:700; color:var(--white); margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .sound-desc { font-size:.75rem; color:var(--muted2); line-height:1.5; margin-bottom:5px; }
+    .sound-meta { font-family:'JetBrains Mono',monospace; font-size:.6rem; color:var(--muted); letter-spacing:1px; }
+
+    /* Waveform / progress bar */
+    .sound-progress-wrap { margin-bottom:14px; }
+    .sound-waveform {
+      height:28px; background:rgba(255,255,255,.03); border:1px solid var(--border);
+      border-radius:8px; overflow:hidden; position:relative; cursor:pointer;
+    }
+    .sound-waveform-bars { display:flex; align-items:center; gap:1.5px; padding:4px 6px; height:100%; }
+    .wv-bar { flex:1; border-radius:2px; background:rgba(255,255,255,.12); transition:background .2s; }
+    .sound-waveform-progress { position:absolute; top:0; left:0; height:100%; background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.06)); width:0%; transition:width .1s linear; pointer-events:none; }
+    .sound-card.playing .wv-bar { background:rgba(255,255,255,.25); }
+
+    .sound-time { display:flex; justify-content:space-between; margin-top:6px; }
+    .sound-time span { font-family:'JetBrains Mono',monospace; font-size:.6rem; color:var(--muted); }
+
+    /* Controls row */
+    .sound-controls { display:flex; align-items:center; gap:8px; }
+    .sound-play-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:50%;
+      background:var(--white); border:none; flex-shrink:0;
+      transition:transform .2s,background .2s; color:#000;
+    }
+    .sound-play-btn:hover { transform:scale(1.08); background:#e0e0e0; }
+
+    .sound-vol-wrap { display:flex; align-items:center; gap:6px; flex:1; }
+    .sound-vol-icon { color:var(--muted2); flex-shrink:0; }
+    .sound-vol {
+      flex:1; -webkit-appearance:none; height:3px; border-radius:2px;
+      background:rgba(255,255,255,.12); outline:none;
+    }
+    .sound-vol::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; border-radius:50%; background:#fff; cursor:pointer; }
+
+    /* VoiceMod open button */
+    .sound-vm-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:50%;
+      background:rgba(255,255,255,.06); border:1px solid var(--border);
+      text-decoration:none; flex-shrink:0;
+      transition:background .2s,border-color .2s,transform .2s;
+    }
+    .sound-vm-btn:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.1); transform:scale(1.08); }
+
+    /* ── OWNER ADD BUTTON (floating) ── */
+    #owner-add-btn {
+      position:fixed; bottom:36px; right:36px; z-index:500;
+      width:52px; height:52px; border-radius:50%;
+      background:var(--white); border:none; color:#000;
+      display:none; /* hidden by default, shown after owner login */
+      align-items:center; justify-content:center;
+      box-shadow:0 8px 32px rgba(255,255,255,.15);
+      transition:transform .2s,box-shadow .2s;
+      font-size:1.5rem; font-weight:300; line-height:1;
+    }
+    #owner-add-btn:hover { transform:scale(1.1) rotate(90deg); box-shadow:0 12px 40px rgba(255,255,255,.2); }
+    #owner-add-btn.visible { display:flex; }
+
+    /* ── OWNER LOGIN MODAL ── */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
+      z-index:1000; display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .25s;
+    }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+    .modal-box {
+      background:#111; border:1px solid var(--border); border-radius:var(--r-lg);
+      padding:36px 32px; width:100%; max-width:400px; margin:16px;
+      animation:modalIn .3s cubic-bezier(0.16,1,0.3,1);
+      position:relative;
+    }
+    @keyframes modalIn { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+    .modal-title { font-size:1.1rem; font-weight:800; color:var(--white); margin-bottom:6px; letter-spacing:-.5px; }
+    .modal-sub { font-size:.78rem; color:var(--muted2); margin-bottom:28px; }
+    .modal-field { width:100%; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:var(--r-sm); padding:12px 16px; color:var(--white); font-size:.85rem; font-family:'Inter',sans-serif; outline:none; margin-bottom:12px; transition:border-color .2s; }
+    .modal-field:focus { border-color:var(--border-h); }
+    .modal-field::placeholder { color:var(--muted2); }
+    .modal-btn { width:100%; padding:13px; background:var(--white); color:#000; border:none; border-radius:var(--r-sm); font-weight:700; font-size:.85rem; font-family:'Inter',sans-serif; transition:background .2s,transform .15s; margin-bottom:10px; }
+    .modal-btn:hover { background:#e8e8e8; transform:translateY(-1px); }
+    .modal-cancel { width:100%; padding:10px; background:transparent; color:var(--muted2); border:1px solid var(--border); border-radius:var(--r-sm); font-size:.8rem; font-family:'Inter',sans-serif; transition:color .2s,border-color .2s; }
+    .modal-cancel:hover { color:var(--white); border-color:var(--border-h); }
+    .modal-error { font-size:.75rem; color:#f87171; margin-bottom:10px; display:none; }
+
+    /* ── UPLOAD MODAL ── */
+    .upload-modal-box {
+      background:#111; border:1px solid var(--border); border-radius:var(--r-lg);
+      padding:36px 32px; width:100%; max-width:480px; margin:16px;
+      animation:modalIn .3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-label { font-size:.72rem; font-weight:600; color:var(--muted3); margin-bottom:6px; display:block; font-family:'JetBrains Mono',monospace; letter-spacing:1px; text-transform:uppercase; }
+    .modal-row { margin-bottom:16px; }
+    .modal-owner-badge { display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:1.5px; text-transform:uppercase; color:#f59e0b; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.2); padding:4px 12px; border-radius:100px; margin-bottom:20px; }
+
+    /* Empty / no results state */
+    .sounds-empty { text-align:center; padding:60px 20px; color:var(--muted2); font-size:.85rem; }
+    .sounds-empty svg { opacity:.25; margin-bottom:14px; display:block; margin-left:auto; margin-right:auto; }
+
+    /* VoiceMod link notice */
+    .voicemod-notice {
+      display:flex; align-items:center; gap:12px;
+      background:rgba(255,255,255,.03); border:1px solid var(--border);
+      border-radius:var(--r-md); padding:14px 20px; margin-bottom:32px;
+      font-size:.78rem; color:var(--muted2); line-height:1.5;
+    }
+    .voicemod-notice a { color:var(--muted3); text-decoration:underline; text-underline-offset:3px; }
+    .voicemod-notice a:hover { color:var(--white); }
+    .voicemod-notice-icon { flex-shrink:0; opacity:.5; }
+
+    /* Owner logout link */
+    #owner-logout { display:none; font-size:.7rem; color:var(--muted); text-decoration:underline; text-underline-offset:3px; margin-left:12px; }
+    #owner-logout:hover { color:var(--white); }
+    #owner-logout.visible { display:inline; }
+
     /* ── FOOTER ── */
     footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
     .footer-logo { font-size:.8rem; font-weight:800; letter-spacing:5px; text-transform:uppercase; color:var(--white); }
@@ -173,100 +339,45 @@
        ── MOBILE FIXES (≤ 768px) ──
     ════════════════════════════════════════ */
     @media(max-width:768px) {
-
-      /* Nav: Hamburger-style — logo left, cta right, tabs below */
       nav {
-        top: 10px;
-        width: calc(100% - 20px);
-        height: auto;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px 14px;
-        gap: 10px;
-        border-radius: var(--r-md);
+        top: 10px; width: calc(100% - 20px); height: auto;
+        flex-direction: column; align-items: stretch;
+        padding: 12px 14px; gap: 10px; border-radius: var(--r-md);
       }
-      .nav-top-row {
-        display: flex !important;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .nav-tabs {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 4px;
-        width: 100%;
-      }
-      .nav-tab {
-        font-size: .6rem;
-        padding: 6px 4px;
-        text-align: center;
-        border-radius: 8px;
-      }
-      .nav-cta {
-        font-size: .7rem;
-        padding: 7px 14px;
-      }
-
-      /* Panel wrap — extra top padding for taller nav */
+      .nav-top-row { display: flex !important; align-items: center; justify-content: space-between; }
+      .nav-tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; width: 100%; }
+      .nav-tab { font-size: .55rem; padding: 6px 2px; text-align: center; border-radius: 8px; }
+      .nav-cta { font-size: .7rem; padding: 7px 14px; }
       .panel-wrap { padding-top: 120px; }
       .top-fade { height: 130px; }
-
-      /* Hero — hide ghost text on mobile, it clips everything */
       .hero-ghost { display: none; }
-      .hero {
-        padding: 24px 20px 16px;
-        min-height: auto;
-      }
-      .hero-title {
-        font-size: clamp(2.8rem, 14vw, 5rem);
-        letter-spacing: -2px;
-      }
+      .hero { padding: 24px 20px 16px; min-height: auto; }
+      .hero-title { font-size: clamp(2.8rem, 14vw, 5rem); letter-spacing: -2px; }
       .hero-sub { font-size: .9rem; margin-top: 16px; }
       .hero-badge { font-size: .62rem; padding: 6px 14px; margin-bottom: 24px; }
       .hero-btns { margin-top: 28px; gap: 10px; }
       .btn { padding: 12px 22px; font-size: .8rem; }
-
-      /* Loader */
       .loader-section { padding: 0 16px; }
       .loader-code { font-size: .68rem; padding: 12px 14px; }
       .loader-copy { padding: 12px 14px; font-size: .7rem; }
-
-      /* Marquee slightly smaller */
       .marquee-item { font-size: .6rem; padding: 0 18px; }
       .marquee-wrap { margin-top: 28px; }
-
-      /* Sections */
       .section { padding: 32px 16px 48px; }
       .section-title { letter-spacing: -1px; margin-bottom: 10px; }
       .section-desc { font-size: .85rem; margin-bottom: 32px; }
-
-      /* Feature grid: 1 col */
       .feature-grid { grid-template-columns: 1fr; gap: 8px; }
       .feature-card { padding: 18px 16px; border-radius: 16px; }
-
-      /* Updates grid: 1 col */
       .updates-grid { grid-template-columns: 1fr; }
-
-      /* Credits grid: 1 col */
       .credits-grid { grid-template-columns: 1fr; }
       .credit-card { padding: 20px; gap: 14px; }
-
-      /* Footer */
-      footer {
-        padding: 20px 16px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
+      .sounds-grid { grid-template-columns: 1fr; }
+      footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
       .footer-copy { font-size: .65rem; }
-
-      /* Toast bottom safe area */
       #toast { bottom: 24px; font-size: .7rem; width: calc(100% - 48px); text-align: center; }
     }
 
-    /* Tweaks for very small screens */
     @media(max-width:400px) {
-      .nav-tab { font-size: .55rem; padding: 5px 2px; }
+      .nav-tab { font-size: .5rem; padding: 5px 1px; }
       .hero-title { font-size: 2.6rem; }
     }
   </style>
@@ -294,6 +405,7 @@
       <button class="nav-tab" onclick="switchTab('updates')">Updates</button>
       <button class="nav-tab" onclick="switchTab('team')">Team</button>
       <button class="nav-tab" onclick="switchTab('socials')">Socials</button>
+      <button class="nav-tab" onclick="switchTab('sounds')">Sounds</button>
     </div>
   </nav>
 
@@ -486,6 +598,94 @@
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════
+         SOUNDS — Panel
+    ══════════════════════════════════════ -->
+    <div class="panel" id="panel-sounds">
+      <div class="section">
+        <div class="section-label">Sounds</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+          <h2 class="section-title" style="margin-bottom:0;">Sound <span class="dim">Library.</span></h2>
+          <!-- Owner-Login Trigger (kleiner Link, unauffällig) -->
+          <span id="owner-login-trigger" style="font-size:.7rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;" onclick="openOwnerLogin()">Owner</span>
+          <span id="owner-logout" onclick="ownerLogout()">Logout</span>
+        </div>
+        <p class="section-desc">Browse und preview alle VOID Sounds. Preview startet VoiceMod direkt.</p>
+
+        <!-- VoiceMod info notice -->
+        <div class="voicemod-notice">
+          <svg class="voicemod-notice-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Sounds öffnen <a href="https://www.voicemod.net" target="_blank">VoiceMod</a> beim Preview. Du brauchst VoiceMod installiert. Sounds werden vom Owner verwaltet.</span>
+        </div>
+
+        <!-- Search -->
+        <div class="sounds-search-wrap">
+          <input class="sounds-search" type="text" id="sounds-search" placeholder="Sound suchen..." oninput="filterSounds()" />
+        </div>
+
+        <!-- Sound cards grid -->
+        <div class="sounds-grid" id="sounds-grid"></div>
+
+        <!-- Empty state -->
+        <div class="sounds-empty" id="sounds-empty" style="display:none;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <div>Kein Sound gefunden.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── OWNER ADD BUTTON (floating, nur für Owner) ── -->
+    <button id="owner-add-btn" onclick="openUploadModal()" title="Sound hinzufügen">+</button>
+
+    <!-- ── OWNER LOGIN MODAL ── -->
+    <div class="modal-overlay" id="modal-login">
+      <div class="modal-box">
+        <div class="modal-title">Owner Login</div>
+        <div class="modal-sub">Nur für den Owner. Passwort eingeben um fortzufahren.</div>
+        <div class="modal-error" id="login-error">Falsches Passwort.</div>
+        <input class="modal-field" type="password" id="owner-pw" placeholder="Passwort..." onkeydown="if(event.key==='Enter')ownerLogin()" />
+        <button class="modal-btn" onclick="ownerLogin()">Einloggen</button>
+        <button class="modal-cancel" onclick="closeModal('modal-login')">Abbrechen</button>
+      </div>
+    </div>
+
+    <!-- ── UPLOAD MODAL (nur Owner sieht es) ── -->
+    <div class="modal-overlay" id="modal-upload">
+      <div class="upload-modal-box">
+        <div class="modal-title">Sound hinzufügen</div>
+        <div class="modal-owner-badge">⚡ Owner Only</div>
+
+        <div class="modal-row">
+          <label class="modal-label">Titel</label>
+          <input class="modal-field" type="text" id="up-title" placeholder="z.B. Roblox Oof" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Beschreibung</label>
+          <input class="modal-field" type="text" id="up-desc" placeholder="Kurze Beschreibung..." />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">VoiceMod Link</label>
+          <input class="modal-field" type="url" id="up-link" placeholder="https://www.voicemod.net/..." />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Kategorie</label>
+          <input class="modal-field" type="text" id="up-cat" placeholder="z.B. Meme, VOID, Classic" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Emoji</label>
+          <input class="modal-field" type="text" id="up-emoji" placeholder="🎵" maxlength="2" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Dauer (z.B. 0:05)</label>
+          <input class="modal-field" type="text" id="up-dur" placeholder="0:05" />
+        </div>
+        <div class="modal-error" id="upload-error">Bitte alle Felder ausfüllen.</div>
+        <button class="modal-btn" onclick="addSound()">Veröffentlichen</button>
+        <button class="modal-cancel" onclick="closeModal('modal-upload')">Abbrechen</button>
+        <button class="modal-cancel" style="margin-top:6px;color:#f87171;border-color:rgba(248,113,113,.2);" onclick="resetSounds()">Alle Sounds löschen</button>
+      </div>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
@@ -501,8 +701,228 @@
   <div id="toast">✓ &nbsp;Copied to clipboard</div>
 
   <script>
+    // ════════════════════════════════════════
+    // ── OWNER CONFIG — Passwort hier ändern!
+    // ════════════════════════════════════════
+    const OWNER_PASSWORD = 'void2025owner';
+    let isOwner = false;
+
+    // ── Owner Login ──
+    function openOwnerLogin() {
+      document.getElementById('owner-pw').value = '';
+      document.getElementById('login-error').style.display = 'none';
+      openModal('modal-login');
+    }
+    function ownerLogin() {
+      const pw = document.getElementById('owner-pw').value;
+      if (pw === OWNER_PASSWORD) {
+        isOwner = true;
+        closeModal('modal-login');
+        document.getElementById('owner-add-btn').classList.add('visible');
+        document.getElementById('owner-logout').classList.add('visible');
+        document.getElementById('owner-login-trigger').style.display = 'none';
+        showToast('✓  Owner Mode aktiv');
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+        document.getElementById('owner-pw').value = '';
+        document.getElementById('owner-pw').focus();
+      }
+    }
+    function ownerLogout() {
+      isOwner = false;
+      document.getElementById('owner-add-btn').classList.remove('visible');
+      document.getElementById('owner-logout').classList.remove('visible');
+      document.getElementById('owner-login-trigger').style.display = '';
+    }
+    function openModal(id)  { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(el => {
+      el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
+    });
+
+    // ════════════════════════════════════════
+    // ── SOUNDS DATA (localStorage persistent)
+    // ════════════════════════════════════════
+    const STORAGE_KEY = 'void_sounds_v1';
+    // Leer — du fügst Sounds selbst als Owner hinzu
+    const DEFAULT_SOUNDS = [];
+
+    function loadSounds() {
+      try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : DEFAULT_SOUNDS; }
+      catch { return DEFAULT_SOUNDS; }
+    }
+    function saveSounds(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+    let SOUNDS = loadSounds();
+
+    // ── Upload Modal ──
+    function openUploadModal() {
+      if (!isOwner) return;
+      ['up-title','up-desc','up-link','up-cat','up-emoji','up-dur'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('upload-error').style.display = 'none';
+      openModal('modal-upload');
+    }
+    function addSound() {
+      if (!isOwner) return;
+      const title = document.getElementById('up-title').value.trim();
+      const desc  = document.getElementById('up-desc').value.trim();
+      const link  = document.getElementById('up-link').value.trim();
+      const cat   = document.getElementById('up-cat').value.trim();
+      const emoji = document.getElementById('up-emoji').value.trim() || '🎵';
+      const dur   = document.getElementById('up-dur').value.trim()   || '0:05';
+      if (!title || !link || !cat) { document.getElementById('upload-error').style.display = 'block'; return; }
+      SOUNDS.push({ name:title, desc:desc||'—', category:cat, emoji, voicemodUrl:link, duration:dur });
+      saveSounds(SOUNDS);
+      closeModal('modal-upload');
+      renderSounds(SOUNDS);
+      showToast('✓  Sound veröffentlicht');
+    }
+
+    // ── Waveform bars ──
+    function generateWaveform(count) {
+      let b = '';
+      for (let i = 0; i < count; i++) b += `<div class="wv-bar" style="height:${20+Math.random()*80}%"></div>`;
+      return b;
+    }
+
+    // ── Render sound cards ──
+    function renderSounds(list) {
+      const grid  = document.getElementById('sounds-grid');
+      const empty = document.getElementById('sounds-empty');
+      grid.innerHTML = '';
+      if (!list.length) { empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      list.forEach(sound => {
+        const gi   = SOUNDS.indexOf(sound);
+        const card = document.createElement('div');
+        card.className   = 'sound-card';
+        card.dataset.idx = gi;
+        card.innerHTML = `
+          <div class="sound-card-top">
+            <div class="sound-thumb">
+              <span class="sound-thumb-icon">${sound.emoji}</span>
+              <div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
+            </div>
+            <div class="sound-info">
+              <div class="sound-name">${sound.name}</div>
+              <div class="sound-desc">${sound.desc}</div>
+              <div class="sound-meta">${sound.category} · ${sound.duration}</div>
+            </div>
+          </div>
+          <div class="sound-progress-wrap">
+            <div class="sound-waveform" onclick="scrubSound(${gi},event,this)">
+              <div class="sound-waveform-bars">${generateWaveform(32)}</div>
+              <div class="sound-waveform-progress" id="progress-${gi}"></div>
+            </div>
+            <div class="sound-time"><span id="time-cur-${gi}">0:00</span><span>${sound.duration}</span></div>
+          </div>
+          <div class="sound-controls">
+            <button class="sound-play-btn" onclick="togglePlay(${gi})" id="playbtn-${gi}" title="Play / Pause">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <div class="sound-vol-wrap">
+              <svg class="sound-vol-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <input class="sound-vol" type="range" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(${gi},this.value)" />
+            </div>
+            <a href="${sound.voicemodUrl}" target="_blank" class="sound-vm-btn" title="In VoiceMod öffnen">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>`;
+        grid.appendChild(card);
+      });
+      attachCursorEvents();
+    }
+
+    // ── Playback (simulated progress + opens VoiceMod) ──
+    let tickMap = {}, currentIdx = null;
+
+    function stopAll(exceptIdx) {
+      Object.keys(tickMap).forEach(i => {
+        const idx = parseInt(i);
+        if (idx === exceptIdx) return;
+        clearInterval(tickMap[idx]);
+        const card = document.querySelector(`.sound-card[data-idx="${idx}"]`);
+        if (!card) return;
+        card.classList.remove('playing');
+        const btn = document.getElementById(`playbtn-${idx}`);
+        if (btn) btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        const prog = document.getElementById(`progress-${idx}`);
+        if (prog) prog.style.width = '0%';
+        const tc = document.getElementById(`time-cur-${idx}`);
+        if (tc) tc.textContent = '0:00';
+      });
+    }
+
+    function togglePlay(idx) {
+      const sound  = SOUNDS[idx];
+      const card   = document.querySelector(`.sound-card[data-idx="${idx}"]`);
+      const btn    = document.getElementById(`playbtn-${idx}`);
+      const isPlay = !card.classList.contains('playing');
+      stopAll(isPlay ? idx : -1);
+      if (!isPlay) {
+        card.classList.remove('playing');
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        clearInterval(tickMap[idx]); currentIdx = null; return;
+      }
+      // Open VoiceMod on play
+      window.open(sound.voicemodUrl, '_blank');
+      card.classList.add('playing');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+      currentIdx = idx;
+      const parts = sound.duration.split(':');
+      const total = parseInt(parts[0])*60 + parseInt(parts[1]);
+      let elapsed = 0;
+      clearInterval(tickMap[idx]);
+      tickMap[idx] = setInterval(() => {
+        elapsed += 0.05;
+        if (elapsed >= total) {
+          clearInterval(tickMap[idx]);
+          card.classList.remove('playing');
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+          const p = document.getElementById(`progress-${idx}`); if (p) p.style.width='0%';
+          const t = document.getElementById(`time-cur-${idx}`); if (t) t.textContent='0:00';
+          currentIdx = null; return;
+        }
+        const pct = (elapsed/total)*100;
+        const p = document.getElementById(`progress-${idx}`); if (p) p.style.width = pct+'%';
+        const t = document.getElementById(`time-cur-${idx}`);
+        if (t) { const m=Math.floor(elapsed/60), s=Math.floor(elapsed%60).toString().padStart(2,'0'); t.textContent=`${m}:${s}`; }
+      }, 50);
+    }
+
+    function scrubSound(idx, e, el) {
+      const pct   = Math.max(0, Math.min(1, (e.clientX - el.getBoundingClientRect().left) / el.offsetWidth));
+      const sound = SOUNDS[idx], parts = sound.duration.split(':');
+      const total = parseInt(parts[0])*60 + parseInt(parts[1]);
+      const p = document.getElementById(`progress-${idx}`); if (p) p.style.width=(pct*100)+'%';
+      const t = document.getElementById(`time-cur-${idx}`);
+      if (t) { const m=Math.floor(pct*total/60), s=Math.floor(pct*total%60).toString().padStart(2,'0'); t.textContent=`${m}:${s}`; }
+    }
+
+    function setVolume() { /* future: real audio */ }
+
+    function resetSounds() {
+      if (!isOwner) return;
+      localStorage.removeItem(STORAGE_KEY);
+      SOUNDS = [];
+      closeModal('modal-upload');
+      renderSounds(SOUNDS);
+      showToast('✓  Alle Sounds gelöscht');
+    }
+
+    // ── Search ──
+    function filterSounds() {
+      const q = document.getElementById('sounds-search').value.toLowerCase().trim();
+      renderSounds(q ? SOUNDS.filter(s => s.name.toLowerCase().includes(q)||s.category.toLowerCase().includes(q)||s.desc.toLowerCase().includes(q)) : SOUNDS);
+    }
+
+    renderSounds(SOUNDS);
+
+    // ════════════════════════════════════════
     // ── Tab Switching ──
-    const tabMap = ['home','features','updates','team','socials'];
+    // ════════════════════════════════════════
+    const tabMap = ['home','features','updates','team','socials','sounds'];
 
     function switchTab(name) {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -520,7 +940,7 @@
       navigator.clipboard.writeText(text).then(() => {
         btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
         btn.classList.add('copied');
-        showToast();
+        showToast('✓  Copied to clipboard');
         setTimeout(() => {
           btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
           btn.classList.remove('copied');
@@ -529,10 +949,11 @@
     }
 
     // ── Toast ──
-    function showToast() {
+    function showToast(msg) {
       const toast = document.getElementById('toast');
+      if (msg) toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
+      setTimeout(() => { toast.classList.remove('show'); toast.textContent = '✓  Copied to clipboard'; }, 2200);
     }
 
     // ── Custom Cursor (desktop only) ──
@@ -600,20 +1021,15 @@
 
       function draw() {
         ctx.clearRect(0, 0, W, H);
-
         for (let i = 0; i < stars.length; i++) {
           const s = stars[i];
-
           s.twinkle += TWINKLE_SPEED * s.twinkleDir;
           const alpha = 0.2 + 0.8 * (0.5 + 0.5 * Math.sin(s.twinkle));
-
           s.x += s.speedX + (mouseX / W - 0.5) * MOUSE_INFLUENCE;
           s.y += s.speedY;
-
           if (s.y > H + 2) { s.y = -2; s.x = Math.random() * W; }
           if (s.x > W + 2) { s.x = -2; }
           if (s.x < -2)    { s.x = W + 2; }
-
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
           ctx.fillStyle   = `rgba(255,255,255,${alpha * 0.9})`;
@@ -622,7 +1038,6 @@
           ctx.fill();
           ctx.shadowBlur  = 0;
         }
-
         requestAnimationFrame(draw);
       }
 

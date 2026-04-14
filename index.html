@@ -343,6 +343,9 @@
         top: 10px; width: calc(100% - 20px); height: auto;
         flex-direction: column; align-items: stretch;
         padding: 12px 14px; gap: 10px; border-radius: var(--r-md);
+        /* Force backdrop-filter on mobile */
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
       }
       .nav-top-row { display: flex !important; align-items: center; justify-content: space-between; }
       .nav-tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; width: 100%; }
@@ -350,36 +353,78 @@
       .nav-cta { font-size: .7rem; padding: 7px 14px; }
       .panel-wrap { padding-top: 120px; }
       .top-fade { height: 130px; }
-      .hero-ghost { display: none; }
+
+      /* Hero ghost — simplify stroke for mobile webkit */
+      .hero-ghost {
+        -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+        text-stroke: 1px rgba(255,255,255,0.06);
+        display: block; /* show on mobile too */
+        font-size: clamp(80px,22vw,160px);
+      }
       .hero { padding: 24px 20px 16px; min-height: auto; }
       .hero-title { font-size: clamp(2.8rem, 14vw, 5rem); letter-spacing: -2px; }
       .hero-sub { font-size: .9rem; margin-top: 16px; }
       .hero-badge { font-size: .62rem; padding: 6px 14px; margin-bottom: 24px; }
       .hero-btns { margin-top: 28px; gap: 10px; }
       .btn { padding: 12px 22px; font-size: .8rem; }
+
+      /* Loader */
       .loader-section { padding: 0 16px; }
       .loader-code { font-size: .68rem; padding: 12px 14px; }
       .loader-copy { padding: 12px 14px; font-size: .7rem; }
+
+      /* Marquee */
       .marquee-item { font-size: .6rem; padding: 0 18px; }
       .marquee-wrap { margin-top: 28px; }
+
+      /* Sections */
       .section { padding: 32px 16px 48px; }
       .section-title { letter-spacing: -1px; margin-bottom: 10px; }
       .section-desc { font-size: .85rem; margin-bottom: 32px; }
+
+      /* Cards — force webkit backdrop-filter */
+      .feature-card, .update-card, .credit-card, .sound-card, .loader-box {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
       .feature-grid { grid-template-columns: 1fr; gap: 8px; }
       .feature-card { padding: 18px 16px; border-radius: 16px; }
       .updates-grid { grid-template-columns: 1fr; }
       .credits-grid { grid-template-columns: 1fr; }
       .credit-card { padding: 20px; gap: 14px; }
       .sounds-grid { grid-template-columns: 1fr; }
+
+      /* Nav blur fallback */
+      nav { background: rgba(10,10,10,0.95); }
+
+      /* Mouse glow — disable on mobile (touch) */
+      #mouse-glow { display: none; }
+
+      /* Footer */
       footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
       .footer-copy { font-size: .65rem; }
       #toast { bottom: 24px; font-size: .7rem; width: calc(100% - 48px); text-align: center; }
+
+      /* Modal full width on mobile */
+      .modal-box, .upload-modal-box {
+        padding: 28px 20px;
+        margin: 12px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
     }
 
     @media(max-width:400px) {
       .nav-tab { font-size: .5rem; padding: 5px 1px; }
       .hero-title { font-size: 2.6rem; }
     }
+
+    /* ── Force webkit prefixes globally for Safari/iOS ── */
+    nav, .feature-card, .update-card, .credit-card, .sound-card,
+    .loader-box, .modal-box, .upload-modal-box, .hero-badge, .voicemod-notice {
+      -webkit-backdrop-filter: blur(10px);
+    }
+    nav { -webkit-backdrop-filter: blur(20px); }
   </style>
 </head>
 <body>
@@ -924,6 +969,7 @@
         const gi   = SOUNDS.indexOf(sound);
         const card = document.createElement('div');
         card.className   = 'sound-card';
+        card.style.cssText = 'display:flex;flex-direction:column;';
         card.dataset.idx = gi;
         card.innerHTML = `
           <div class="sound-card-top">
@@ -939,8 +985,9 @@
               <div class="sound-meta">${sound.category} · ${sound.duration}</div>
             </div>
           </div>
+          <div style="flex:1;"></div>
           <a href="${sound.voicemodUrl}" target="_blank"
-            style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--white);text-decoration:none;font-size:.78rem;font-weight:600;transition:background .2s,border-color .2s;margin-top:14px;"
+            style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--white);text-decoration:none;font-size:.78rem;font-weight:600;transition:background .2s,border-color .2s;margin-top:8px;"
             onmouseenter="this.style.background='rgba(255,255,255,.12)';this.style.borderColor='rgba(255,255,255,.25)'"
             onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='var(--border)'">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>

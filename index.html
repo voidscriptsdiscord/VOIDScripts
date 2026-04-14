@@ -695,9 +695,42 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- FOOTER -->
+    <!-- ── EDIT MODAL (owner only) ── -->
+    <div class="modal-overlay" id="modal-edit">
+      <div class="upload-modal-box">
+        <div class="modal-title">Edit Sound</div>
+        <div class="modal-owner-badge">Owner Only</div>
+        <input type="hidden" id="edit-idx" />
+        <div class="modal-row">
+          <label class="modal-label">Title</label>
+          <input class="modal-field" type="text" id="edit-title" placeholder="e.g. Bruh Moment" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Description</label>
+          <input class="modal-field" type="text" id="edit-desc" placeholder="Short description..." />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">VoiceMod Sound Link</label>
+          <input class="modal-field" type="url" id="edit-link" placeholder="https://www.voicemod.net/sounds/..." />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">VoiceMod Image URL</label>
+          <input class="modal-field" type="url" id="edit-img" placeholder="https://images.voicemod.net/..." oninput="previewEditImg(this.value)" />
+          <img id="edit-img-preview" src="" alt="" style="width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border);display:none;margin-top:8px;" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Category</label>
+          <input class="modal-field" type="text" id="edit-cat" placeholder="e.g. Meme, VOID, Classic" />
+        </div>
+        <div class="modal-row">
+          <label class="modal-label">Duration (e.g. 0:05)</label>
+          <input class="modal-field" type="text" id="edit-dur" placeholder="0:05" />
+        </div>
+        <div class="modal-error" id="edit-error">Please fill in all required fields.</div>
+        <button class="modal-btn" onclick="saveEdit()">Save</button>
+        <button class="modal-cancel" onclick="closeModal('modal-edit')">Cancel</button>
+      </div>
+    </div>
   <footer>
     <div class="footer-logo">Void</div>
     <div class="footer-copy">© 2025 VOID Scripts — Not affiliated with Roblox Corporation</div>
@@ -912,10 +945,93 @@
             onmouseleave="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='var(--border)'">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open in VoiceMod
-          </a>`;
+          </a>
+          ${isOwner ? `
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button onclick="openEditModal(${gi})"
+              style="flex:1;padding:9px;background:transparent;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--muted3);font-size:.75rem;font-weight:600;font-family:'Inter',sans-serif;transition:border-color .2s,color .2s;"
+              onmouseenter="this.style.borderColor='rgba(255,255,255,.3)';this.style.color='#fff'"
+              onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--muted3)'">
+              Edit
+            </button>
+            <button onclick="deleteSound(${gi})"
+              style="flex:1;padding:9px;background:transparent;border:1px solid rgba(248,113,113,.2);border-radius:var(--r-sm);color:#f87171;font-size:.75rem;font-weight:600;font-family:'Inter',sans-serif;transition:border-color .2s,background .2s;"
+              onmouseenter="this.style.background='rgba(248,113,113,.08)';this.style.borderColor='rgba(248,113,113,.4)'"
+              onmouseleave="this.style.background='transparent';this.style.borderColor='rgba(248,113,113,.2)'">
+              Delete
+            </button>
+          </div>` : ''}
+        `;
         grid.appendChild(card);
       });
       attachCursorEvents();
+    }
+
+    // ── Delete sound (owner only) ──
+    async function deleteSound(idx) {
+      if (!isOwner) return;
+      if (!confirm(`Delete "${SOUNDS[idx].name}"?`)) return;
+      SOUNDS.splice(idx, 1);
+      try {
+        await saveSoundsToGitHub(SOUNDS);
+        renderSounds(SOUNDS);
+        showToast('Sound deleted');
+      } catch(e) {
+        showToast('Error — could not delete');
+        loadSoundsFromGitHub();
+      }
+    }
+
+    // ── Edit sound (owner only) ──
+    function openEditModal(idx) {
+      if (!isOwner) return;
+      const s = SOUNDS[idx];
+      document.getElementById('edit-idx').value   = idx;
+      document.getElementById('edit-title').value = s.name;
+      document.getElementById('edit-desc').value  = s.desc;
+      document.getElementById('edit-link').value  = s.voicemodUrl;
+      document.getElementById('edit-img').value   = s.imageUrl || '';
+      document.getElementById('edit-cat').value   = s.category;
+      document.getElementById('edit-dur').value   = s.duration;
+      document.getElementById('edit-error').style.display = 'none';
+      const prev = document.getElementById('edit-img-preview');
+      if (s.imageUrl) { prev.src = s.imageUrl; prev.style.display = 'block'; }
+      else prev.style.display = 'none';
+      openModal('modal-edit');
+    }
+
+    async function saveEdit() {
+      if (!isOwner) return;
+      const idx      = parseInt(document.getElementById('edit-idx').value);
+      const title    = document.getElementById('edit-title').value.trim();
+      const desc     = document.getElementById('edit-desc').value.trim();
+      const link     = document.getElementById('edit-link').value.trim();
+      const imageUrl = document.getElementById('edit-img').value.trim();
+      const cat      = document.getElementById('edit-cat').value.trim();
+      const dur      = document.getElementById('edit-dur').value.trim() || '0:05';
+      if (!title || !link || !cat) { document.getElementById('edit-error').style.display = 'block'; return; }
+      const btn = document.querySelector('#modal-edit .modal-btn');
+      btn.textContent = 'Saving...'; btn.disabled = true;
+      SOUNDS[idx] = { name:title, desc:desc||'—', category:cat, imageUrl, voicemodUrl:link, duration:dur };
+      try {
+        await saveSoundsToGitHub(SOUNDS);
+        closeModal('modal-edit');
+        renderSounds(SOUNDS);
+        showToast('Sound updated');
+      } catch(e) {
+        document.getElementById('edit-error').textContent = 'Save failed. Check your token.';
+        document.getElementById('edit-error').style.display = 'block';
+        loadSoundsFromGitHub();
+      } finally {
+        btn.textContent = 'Save'; btn.disabled = false;
+      }
+    }
+
+    function previewEditImg(url) {
+      const img = document.getElementById('edit-img-preview');
+      if (!url) { img.style.display='none'; return; }
+      img.src = url; img.style.display = 'block';
+      img.onerror = () => img.style.display = 'none';
     }
 
     // ── Playback (simulated progress + opens VoiceMod) ──

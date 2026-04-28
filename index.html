@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VOID — The Best Roblox Script Hub</title>
-  <link rel="icon" type="image/png" href="7365-removebg-preview.png" />
-  <link rel="apple-touch-icon" href="7365-removebg-preview.png" />
+  <title>Vexyron — The Best Roblox Script Hub</title>
+  <link rel="icon" type="image/png" href="Design_ohne_Titel-removebg-preview.png" />
+  <link rel="apple-touch-icon" href="Design_ohne_Titel-removebg-preview.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -25,7 +25,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; min-height: 100vh; }
 
-    /* ── STAR CANVAS ── */
     #starfield {
       position: fixed;
       top: 0; left: 0;
@@ -34,7 +33,6 @@
       pointer-events: none;
     }
 
-    /* ── BG ORBS ── */
     .bg-orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
     .bg-orb-1 { width:700px; height:700px; background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,transparent 70%); top:-200px; left:-200px; animation:float1 10s ease-in-out infinite; }
     .bg-orb-2 { width:600px; height:600px; background:radial-gradient(circle,rgba(180,180,255,0.06) 0%,transparent 70%); bottom:0; right:-150px; animation:float2 12s ease-in-out infinite; }
@@ -42,7 +40,6 @@
     @keyframes float1 { 0%,100%{transform:translateY(0) translateX(0)} 33%{transform:translateY(-40px) translateX(20px)} 66%{transform:translateY(20px) translateX(-20px)} }
     @keyframes float2 { 0%,100%{transform:translateY(0) translateX(0)} 33%{transform:translateY(30px) translateX(-30px)} 66%{transform:translateY(-20px) translateX(20px)} }
 
-    /* ── CURSOR (desktop only) ── */
     @media(pointer:fine) {
       * { cursor: none !important; user-select: none; -webkit-user-select: none; }
     }
@@ -55,7 +52,6 @@
 
     .top-fade { position:fixed; top:0; left:0; right:0; height:160px; background:linear-gradient(to bottom,var(--bg) 0%,transparent 100%); pointer-events:none; z-index:50; }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
       z-index: 200; width: calc(100% - 48px); max-width: 1100px; height: 56px;
@@ -80,13 +76,11 @@
     .nav-cta { font-size:.75rem; font-weight:700; color:#000; background:var(--white); padding:8px 18px; border-radius:var(--r-sm); text-decoration:none; transition:transform .2s,box-shadow .2s,background .2s; flex-shrink:0; }
     .nav-cta:hover { background:#e8e8e8; transform:translateY(-1px); box-shadow:0 8px 24px rgba(255,255,255,.1); }
 
-    /* ── PANELS ── */
     .panel-wrap { position:relative; z-index:1; padding-top:90px; min-height:100vh; }
     .panel { display:none; animation:panelIn .3s cubic-bezier(0.16,1,0.3,1); }
     .panel.active { display:block; }
     @keyframes panelIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ── HERO ── */
     .hero { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 24px 10px; min-height:calc(60vh - 90px); position:relative; overflow:hidden; }
     .hero-ghost { position:absolute; font-size:clamp(100px,20vw,260px); font-weight:900; letter-spacing:-6px; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.035); pointer-events:none; top:50%; left:50%; transform:translate(-50%,-52%); white-space:nowrap; animation:ghostPulse 6s ease-in-out infinite; }
     @keyframes ghostPulse { 0%,100%{opacity:1} 50%{opacity:.5} }
@@ -98,7 +92,6 @@
     .hero-sub { position:relative; z-index:1; margin-top:24px; font-size:1.05rem; color:var(--muted2); max-width:420px; line-height:1.65; }
     .hero-btns { position:relative; z-index:1; margin-top:44px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
 
-    /* ── LOADER ── */
     .loader-section { display:flex; flex-direction:column; align-items:center; gap:12px; padding:0 24px; }
     .loader-label { font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted2); }
     .loader-box { display:flex; align-items:center; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; max-width:700px; width:100%; backdrop-filter:blur(10px); transition:border-color .3s; }
@@ -108,13 +101,11 @@
     .loader-copy:hover { background:#e0e0e0; }
     .loader-copy.copied { background:#4ade80; }
 
-    /* ── MARQUEE ── */
     .marquee-wrap { overflow:hidden; padding:18px 0; background:rgba(17,17,17,0.5); border-top:1px solid var(--border); border-bottom:1px solid var(--border); -webkit-mask:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%); mask:linear-gradient(90deg,transparent 0%,black 12%,black 88%,transparent 100%); margin-top:40px; }
     .marquee-track { display:flex; width:max-content; animation:marquee 30s linear infinite; }
     .marquee-item { font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--muted); letter-spacing:3px; text-transform:uppercase; white-space:nowrap; padding:0 28px; }
     @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── BUTTONS ── */
     .btn { display:inline-flex; align-items:center; gap:8px; font-size:.85rem; font-weight:700; padding:14px 28px; border-radius:var(--r-md); text-decoration:none; border:none; font-family:'Inter',sans-serif; transition:transform .2s,box-shadow .2s,background .2s; }
     .btn:active { transform:scale(0.97) !important; }
     .btn-white { background:var(--white); color:#000; }
@@ -122,14 +113,12 @@
     .btn-glass { background:var(--glass); color:var(--muted3); border:1px solid var(--border); backdrop-filter:blur(10px); }
     .btn-glass:hover { border-color:var(--border-h); color:var(--white); transform:translateY(-2px); background:rgba(255,255,255,.07); }
 
-    /* ── SECTION ── */
     .section { padding:60px 40px 80px; max-width:1100px; margin:0 auto; }
     .section-label { font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--muted2); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
     .section-title { font-size:clamp(2rem,4vw,3rem); font-weight:800; letter-spacing:-1.5px; color:var(--white); line-height:1.1; margin-bottom:14px; }
     .section-title .dim { color:var(--muted); }
     .section-desc { font-size:.92rem; color:var(--muted2); max-width:460px; line-height:1.7; margin-bottom:48px; }
 
-    /* ── FEATURE CARDS ── */
     .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
     .feature-card { background:var(--glass); border:1px solid var(--border); border-radius:20px; padding:20px 18px; backdrop-filter:blur(10px); transition:background .3s,border-color .3s,transform .35s,box-shadow .35s; position:relative; overflow:hidden; }
     .feature-card:hover { background:rgba(255,255,255,.07); border-color:var(--border-h); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.4); }
@@ -138,7 +127,6 @@
     .feature-name { font-size:.85rem; font-weight:700; color:var(--white); margin-bottom:6px; }
     .feature-desc { font-size:.75rem; color:var(--muted2); line-height:1.6; }
 
-    /* ── UPDATE CARDS ── */
     .updates-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
     .update-card { background:var(--glass); border:1px solid var(--border); border-radius:var(--r-lg); padding:28px; backdrop-filter:blur(10px); transition:background .3s,border-color .3s,transform .3s; position:relative; overflow:hidden; }
     .update-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); }
@@ -148,7 +136,6 @@
     .update-list li { font-size:.82rem; color:var(--muted2); display:flex; align-items:center; gap:10px; }
     .update-list li::before { content:''; width:4px; height:4px; background:var(--muted); border-radius:50%; flex-shrink:0; }
 
-    /* ── CREDIT CARDS ── */
     .credits-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
     .credit-card { background:var(--glass); border:1px solid var(--border); border-radius:var(--r-lg); padding:28px; display:flex; align-items:flex-start; gap:18px; backdrop-filter:blur(10px); transition:background .3s,border-color .3s,transform .3s; text-decoration:none; color:inherit; }
     .credit-card:hover { background:rgba(255,255,255,.06); border-color:var(--border-h); transform:translateY(-4px); }
@@ -158,11 +145,6 @@
     .credit-tags { display:flex; flex-wrap:wrap; gap:6px; }
     .credit-tag { font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; border-radius:100px; background:rgba(255,255,255,.05); color:var(--muted2); border:1px solid var(--border); }
 
-    /* ══════════════════════════════════════
-       ── SOUNDS PANEL ──
-    ══════════════════════════════════════ */
-
-    /* Search bar */
     .sounds-search-wrap { display:flex; align-items:center; gap:10px; margin-bottom:32px; }
     .sounds-search {
       flex:1; background:var(--glass); border:1px solid var(--border);
@@ -173,10 +155,8 @@
     .sounds-search::placeholder { color:var(--muted2); }
     .sounds-search:focus { border-color:var(--border-h); }
 
-    /* Sound grid */
     .sounds-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
 
-    /* Individual sound card */
     .sound-card {
       background:var(--glass); border:1px solid var(--border); border-radius:var(--r-lg);
       padding:22px 20px; backdrop-filter:blur(10px);
@@ -197,7 +177,6 @@
     .sound-card.playing .sound-thumb { border-color:rgba(255,255,255,.25); }
     .sound-thumb-icon { font-size:1.2rem; }
 
-    /* Animated equalizer bars (shown when playing) */
     .eq-bars { display:flex; align-items:flex-end; gap:2px; height:18px; position:absolute; opacity:0; transition:opacity .3s; }
     .sound-card.playing .eq-bars { opacity:1; }
     .sound-card.playing .sound-thumb-icon { opacity:0; }
@@ -214,7 +193,6 @@
     .sound-desc { font-size:.75rem; color:var(--muted2); line-height:1.5; margin-bottom:5px; }
     .sound-meta { font-family:'JetBrains Mono',monospace; font-size:.6rem; color:var(--muted); letter-spacing:1px; }
 
-    /* Waveform / progress bar */
     .sound-progress-wrap { margin-bottom:14px; }
     .sound-waveform {
       height:28px; background:rgba(255,255,255,.03); border:1px solid var(--border);
@@ -228,7 +206,6 @@
     .sound-time { display:flex; justify-content:space-between; margin-top:6px; }
     .sound-time span { font-family:'JetBrains Mono',monospace; font-size:.6rem; color:var(--muted); }
 
-    /* Controls row */
     .sound-controls { display:flex; align-items:center; gap:8px; }
     .sound-play-btn {
       display:flex; align-items:center; justify-content:center;
@@ -246,7 +223,6 @@
     }
     .sound-vol::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; border-radius:50%; background:#fff; cursor:pointer; }
 
-    /* VoiceMod open button */
     .sound-vm-btn {
       display:flex; align-items:center; justify-content:center;
       width:34px; height:34px; border-radius:50%;
@@ -256,12 +232,11 @@
     }
     .sound-vm-btn:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.1); transform:scale(1.08); }
 
-    /* ── OWNER ADD BUTTON (floating) ── */
     #owner-add-btn {
       position:fixed; bottom:36px; right:36px; z-index:500;
       width:52px; height:52px; border-radius:50%;
       background:var(--white); border:none; color:#000;
-      display:none; /* hidden by default, shown after owner login */
+      display:none;
       align-items:center; justify-content:center;
       box-shadow:0 8px 32px rgba(255,255,255,.15);
       transition:transform .2s,box-shadow .2s;
@@ -270,7 +245,6 @@
     #owner-add-btn:hover { transform:scale(1.1) rotate(90deg); box-shadow:0 12px 40px rgba(255,255,255,.2); }
     #owner-add-btn.visible { display:flex; }
 
-    /* ── OWNER LOGIN MODAL ── */
     .modal-overlay {
       position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
       z-index:1000; display:flex; align-items:center; justify-content:center;
@@ -295,7 +269,6 @@
     .modal-cancel:hover { color:var(--white); border-color:var(--border-h); }
     .modal-error { font-size:.75rem; color:#f87171; margin-bottom:10px; display:none; }
 
-    /* ── UPLOAD MODAL ── */
     .upload-modal-box {
       background:#111; border:1px solid var(--border); border-radius:var(--r-lg);
       padding:36px 32px; width:100%; max-width:480px; margin:16px;
@@ -305,11 +278,9 @@
     .modal-row { margin-bottom:16px; }
     .modal-owner-badge { display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:1.5px; text-transform:uppercase; color:#f59e0b; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.2); padding:4px 12px; border-radius:100px; margin-bottom:20px; }
 
-    /* Empty / no results state */
     .sounds-empty { text-align:center; padding:60px 20px; color:var(--muted2); font-size:.85rem; }
     .sounds-empty svg { opacity:.25; margin-bottom:14px; display:block; margin-left:auto; margin-right:auto; }
 
-    /* VoiceMod link notice */
     .voicemod-notice {
       display:flex; align-items:center; gap:12px;
       background:rgba(255,255,255,.03); border:1px solid var(--border);
@@ -320,12 +291,10 @@
     .voicemod-notice a:hover { color:var(--white); }
     .voicemod-notice-icon { flex-shrink:0; opacity:.5; }
 
-    /* Owner logout link */
     #owner-logout { display:none; font-size:.7rem; color:var(--muted); text-decoration:underline; text-underline-offset:3px; margin-left:12px; }
     #owner-logout:hover { color:var(--white); }
     #owner-logout.visible { display:inline; }
 
-    /* ── FOOTER ── */
     footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
     .footer-logo { font-size:.8rem; font-weight:800; letter-spacing:5px; text-transform:uppercase; color:var(--white); }
     .footer-copy { font-size:.72rem; color:var(--muted); }
@@ -333,19 +302,14 @@
     .footer-links a { font-size:.72rem; color:var(--muted); text-decoration:none; transition:color .2s; }
     .footer-links a:hover { color:var(--white); }
 
-    /* ── TOAST ── */
     #toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(12px); background:var(--white); color:#000; font-size:.75rem; font-weight:700; padding:12px 22px; border-radius:var(--r-md); opacity:0; transition:opacity .25s,transform .35s cubic-bezier(0.16,1,0.3,1); pointer-events:none; z-index:9999; }
     #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    /* ════════════════════════════════════════
-       ── MOBILE FIXES (≤ 768px) ──
-    ════════════════════════════════════════ */
     @media(max-width:768px) {
       nav {
         top: 10px; width: calc(100% - 20px); height: auto;
         flex-direction: column; align-items: stretch;
         padding: 12px 14px; gap: 10px; border-radius: var(--r-md);
-        /* Force backdrop-filter on mobile */
         -webkit-backdrop-filter: blur(20px);
         backdrop-filter: blur(20px);
       }
@@ -356,11 +320,10 @@
       .panel-wrap { padding-top: 120px; }
       .top-fade { height: 130px; }
 
-      /* Hero ghost — simplify stroke for mobile webkit */
       .hero-ghost {
         -webkit-text-stroke: 1px rgba(255,255,255,0.06);
         text-stroke: 1px rgba(255,255,255,0.06);
-        display: block; /* show on mobile too */
+        display: block;
         font-size: clamp(80px,22vw,160px);
       }
       .hero { padding: 24px 20px 16px; min-height: auto; }
@@ -370,21 +333,17 @@
       .hero-btns { margin-top: 28px; gap: 10px; }
       .btn { padding: 12px 22px; font-size: .8rem; }
 
-      /* Loader */
       .loader-section { padding: 0 16px; }
       .loader-code { font-size: .68rem; padding: 12px 14px; }
       .loader-copy { padding: 12px 14px; font-size: .7rem; }
 
-      /* Marquee */
       .marquee-item { font-size: .6rem; padding: 0 18px; }
       .marquee-wrap { margin-top: 28px; }
 
-      /* Sections */
       .section { padding: 32px 16px 48px; }
       .section-title { letter-spacing: -1px; margin-bottom: 10px; }
       .section-desc { font-size: .85rem; margin-bottom: 32px; }
 
-      /* Cards — force webkit backdrop-filter */
       .feature-card, .update-card, .credit-card, .sound-card, .loader-box {
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
@@ -396,18 +355,14 @@
       .credit-card { padding: 20px; gap: 14px; }
       .sounds-grid { grid-template-columns: 1fr; }
 
-      /* Nav blur fallback */
       nav { background: rgba(10,10,10,0.95); }
 
-      /* Mouse glow — disable on mobile (touch) */
       #mouse-glow { display: none; }
 
-      /* Footer */
       footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
       .footer-copy { font-size: .65rem; }
       #toast { bottom: 24px; font-size: .7rem; width: calc(100% - 48px); text-align: center; }
 
-      /* Modal full width on mobile */
       .modal-box, .upload-modal-box {
         padding: 28px 20px;
         margin: 12px;
@@ -421,7 +376,6 @@
       .hero-title { font-size: 2.6rem; }
     }
 
-    /* ── Force webkit prefixes globally for Safari/iOS ── */
     nav, .feature-card, .update-card, .credit-card, .sound-card,
     .loader-box, .modal-box, .upload-modal-box, .hero-badge, .voicemod-notice {
       -webkit-backdrop-filter: blur(10px);
@@ -431,7 +385,6 @@
 </head>
 <body>
 
-  <!-- ── STAR CANVAS ── -->
   <canvas id="starfield"></canvas>
 
   <div class="bg-orb bg-orb-1"></div>
@@ -441,11 +394,10 @@
   <div id="mouse-glow"></div>
   <div class="top-fade"></div>
 
-  <!-- ── NAV ── -->
   <nav>
     <div class="nav-top-row">
       <div class="logo" style="display:flex;align-items:center;justify-content:flex-start;height:100%">
-        <img src="7365-removebg-preview.png" alt="VOID" style="height:32px;width:auto;display:block;object-fit:contain;vertical-align:middle;" />
+        <img src="Design_ohne_Titel-removebg-preview.png" alt="Vexyron" style="height:32px;width:auto;display:block;object-fit:contain;vertical-align:middle;" />
       </div>
     </div>
     <div class="nav-tabs">
@@ -458,18 +410,17 @@
     </div>
   </nav>
 
-  <!-- ── PANELS ── -->
   <div class="panel-wrap">
 
     <!-- HOME -->
     <div class="panel active" id="panel-home">
       <div class="hero">
-        <div class="hero-ghost">VOID</div>
+        <div class="hero-ghost">Vexyron</div>
         <div class="hero-badge">
           <div class="badge-dot"></div>
           v1.6 &nbsp;—&nbsp; Now Live
         </div>
-        <h1 class="hero-title">VOID<br/><span class="dim">Best Script Hub.</span></h1>
+        <h1 class="hero-title">Vexyron<br/><span class="dim">Best Script Hub.</span></h1>
         <p class="hero-sub">Clean. Fast. Undetected.</p>
         <div class="hero-btns">
           <button class="btn btn-glass" onclick="switchTab('features')">Explore</button>
@@ -477,7 +428,7 @@
         </div>
       </div>
       <div class="loader-section">
-        <div class="loader-label">VOID Hub — Universal Loader</div>
+        <div class="loader-label">Vexyron Hub — Universal Loader</div>
         <div class="loader-box">
           <div class="loader-code" id="loader-text">loadstring(game:HttpGet("https://gist.githubusercontent.com/voidscriptsdiscord/dfd0eebf6cb60ee890d439d170482325/raw/VOIDHUB"))()</div>
           <button class="loader-copy" onclick="copyLoader()">
@@ -583,7 +534,7 @@
             <div class="credit-avatar">B</div>
             <div>
               <div class="credit-name">Boby</div>
-              <div class="credit-role">Owner of VOID Hub</div>
+              <div class="credit-role">Owner of Vexyron Hub</div>
               <div class="credit-tags"><span class="credit-tag">Coding</span><span class="credit-tag">Design</span></div>
             </div>
           </div>
@@ -620,7 +571,7 @@
             <div>
               <div class="credit-name">Discord</div>
               <div class="credit-role">Join the community</div>
-              <div class="credit-tags"><span class="credit-tag">discord.gg/void</span></div>
+              <div class="credit-tags"><span class="credit-tag">discord.gg/vexyron</span></div>
             </div>
           </a>
           <a href="https://youtube.com/@void.scripts.roblox?si=MbOWwljvuWdb5cU8" target="_blank" class="credit-card">
@@ -630,7 +581,7 @@
             <div>
               <div class="credit-name">YouTube</div>
               <div class="credit-role">Scripts & tutorials</div>
-              <div class="credit-tags"><span class="credit-tag">@void.scripts.roblox</span></div>
+              <div class="credit-tags"><span class="credit-tag">@vexyron.scripts</span></div>
             </div>
           </a>
           <a href="https://www.tiktok.com/@void.scripts.robl" target="_blank" class="credit-card">
@@ -640,48 +591,40 @@
             <div>
               <div class="credit-name">TikTok</div>
               <div class="credit-role">Clips & updates</div>
-              <div class="credit-tags"><span class="credit-tag">@void.scripts.robl</span></div>
+              <div class="credit-tags"><span class="credit-tag">@vexyron.scripts</span></div>
             </div>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════
-         SOUNDS — Panel
-    ══════════════════════════════════════ -->
+    <!-- SOUNDS -->
     <div class="panel" id="panel-sounds">
       <div class="section">
         <div class="section-label">Sounds</div>
         <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
           <h2 class="section-title" style="margin-bottom:0;">Sound <span class="dim">Library.</span></h2>
-          <!-- + Button: only visible after owner login -->
           <button id="owner-add-btn-inline" onclick="openUploadModal()"
             style="display:none;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--white);border:none;color:#000;font-size:1.3rem;font-weight:300;line-height:1;box-shadow:0 4px 16px rgba(255,255,255,.12);transition:transform .2s,box-shadow .2s;"
             onmouseenter="this.style.transform='scale(1.12) rotate(90deg)'"
             onmouseleave="this.style.transform='scale(1) rotate(0deg)'"
             title="Add Sound">+</button>
-          <!-- Invisible owner trigger -->
           <span id="owner-login-trigger" onclick="openOwnerLogin()" style="width:20px;height:20px;display:inline-block;opacity:0;cursor:default;"></span>
           <span id="owner-logout" onclick="ownerLogout()" style="display:none;font-size:.68rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Logout</span>
         </div>
-        <p class="section-desc">Browse and preview all VOID sounds. Clicking play opens VoiceMod directly.</p>
+        <p class="section-desc">Browse and preview all Vexyron sounds. Clicking play opens VoiceMod directly.</p>
 
-        <!-- VoiceMod info notice -->
         <div class="voicemod-notice">
           <svg class="voicemod-notice-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <span>Sounds open <a href="https://www.voicemod.net" target="_blank">VoiceMod</a> on play. You need VoiceMod installed to use sounds. Sounds are managed by the owner.</span>
         </div>
 
-        <!-- Search -->
         <div class="sounds-search-wrap">
           <input class="sounds-search" type="text" id="sounds-search" placeholder="Search sounds..." oninput="filterSounds()" />
         </div>
 
-        <!-- Sound cards grid -->
         <div class="sounds-grid" id="sounds-grid"></div>
 
-        <!-- Empty state -->
         <div class="sounds-empty" id="sounds-empty" style="display:none;">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
           <div>No sounds found.</div>
@@ -689,7 +632,7 @@
       </div>
     </div>
 
-    <!-- ── OWNER LOGIN MODAL ── -->
+    <!-- OWNER LOGIN MODAL -->
     <div class="modal-overlay" id="modal-login">
       <div class="modal-box">
         <div class="modal-title">Owner Login</div>
@@ -702,12 +645,11 @@
       </div>
     </div>
 
-    <!-- ── UPLOAD MODAL (owner only) ── -->
+    <!-- UPLOAD MODAL -->
     <div class="modal-overlay" id="modal-upload">
       <div class="upload-modal-box">
         <div class="modal-title">Add Sound</div>
         <div class="modal-owner-badge">Owner Only</div>
-
         <div class="modal-row">
           <label class="modal-label">Title</label>
           <input class="modal-field" type="text" id="up-title" placeholder="e.g. Bruh Moment" />
@@ -723,7 +665,6 @@
         <div class="modal-row">
           <label class="modal-label">VoiceMod Image URL</label>
           <input class="modal-field" type="url" id="up-img" placeholder="https://images.voicemod.net/..." oninput="previewImg(this.value)" />
-          <!-- live preview -->
           <div style="margin-top:8px;display:flex;align-items:center;gap:10px;">
             <img id="up-img-preview" src="" alt="" style="width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border);display:none;" />
             <span id="up-img-status" style="font-size:.7rem;color:var(--muted2);"></span>
@@ -731,7 +672,7 @@
         </div>
         <div class="modal-row">
           <label class="modal-label">Category</label>
-          <input class="modal-field" type="text" id="up-cat" placeholder="e.g. Meme, VOID, Classic" />
+          <input class="modal-field" type="text" id="up-cat" placeholder="e.g. Meme, Vexyron, Classic" />
         </div>
         <div class="modal-row">
           <label class="modal-label">Duration (e.g. 0:05)</label>
@@ -744,7 +685,7 @@
       </div>
     </div>
 
-    <!-- ── EDIT MODAL (owner only) ── -->
+    <!-- EDIT MODAL -->
     <div class="modal-overlay" id="modal-edit">
       <div class="upload-modal-box">
         <div class="modal-title">Edit Sound</div>
@@ -769,7 +710,7 @@
         </div>
         <div class="modal-row">
           <label class="modal-label">Category</label>
-          <input class="modal-field" type="text" id="edit-cat" placeholder="e.g. Meme, VOID, Classic" />
+          <input class="modal-field" type="text" id="edit-cat" placeholder="e.g. Meme, Vexyron, Classic" />
         </div>
         <div class="modal-row">
           <label class="modal-label">Duration (e.g. 0:05)</label>
@@ -780,11 +721,13 @@
         <button class="modal-cancel" onclick="closeModal('modal-edit')">Cancel</button>
       </div>
     </div>
+  </div>
+
   <footer>
     <div class="footer-logo">
-      <img src="7365-removebg-preview.png" alt="VOID" style="height:24px;width:auto;display:block;opacity:.8;" />
+      <img src="Design_ohne_Titel-removebg-preview.png" alt="Vexyron" style="height:24px;width:auto;display:block;opacity:.8;" />
     </div>
-    <div class="footer-copy">© 2025 VOID Scripts — Not affiliated with Roblox Corporation</div>
+    <div class="footer-copy">© 2025 Vexyron Scripts — Not affiliated with Roblox Corporation</div>
     <div class="footer-links">
       <a href="#">Terms</a>
       <a href="#">Privacy</a>
@@ -794,13 +737,9 @@
   <div id="toast">✓ &nbsp;Copied to clipboard</div>
 
   <script>
-    // ════════════════════════════════════════
-    // ── OWNER CONFIG — Passwort hier ändern!
-    // ════════════════════════════════════════
     const OWNER_PASSWORD = 'void2025owner';
     let isOwner = false;
 
-    // ── Owner Login ──
     function openOwnerLogin() {
       document.getElementById('owner-pw').value = '';
       document.getElementById('login-error').style.display = 'none';
@@ -834,34 +773,27 @@
     function openModal(id)  { document.getElementById(id).classList.add('open'); }
     function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-    // Close on overlay click
     document.querySelectorAll('.modal-overlay').forEach(el => {
       el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
     });
 
-    // ════════════════════════════════════════
-    // ── GITHUB CONFIG
-    // ════════════════════════════════════════
     const GH_USER  = 'voidscriptsdiscord';
     const GH_REPO  = 'VOIDScripts';
     const GH_FILE  = 'sounds.json';
-    let   GH_TOKEN = ''; // set at runtime when owner logs in — never stored in code
+    let   GH_TOKEN = '';
 
     const GH_API = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/contents/${GH_FILE}`;
 
     let SOUNDS  = [];
-    let GH_SHA  = ''; // needed for updating the file
+    let GH_SHA  = '';
 
-    // ── Load sounds from GitHub (public — no token needed) ──
     async function loadSoundsFromGitHub() {
       const grid  = document.getElementById('sounds-grid');
       const empty = document.getElementById('sounds-empty');
       grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted2);font-size:.8rem;">Loading sounds...</div>';
       try {
-        // Use raw URL so no token needed for public repo
         const res  = await fetch(`https://raw.githubusercontent.com/${GH_USER}/${GH_REPO}/main/${GH_FILE}?t=` + Date.now());
         SOUNDS = await res.json();
-        // Also fetch SHA for later writes
         const meta = await fetch(GH_API);
         const data = await meta.json();
         GH_SHA = data.sha;
@@ -872,7 +804,6 @@
       }
     }
 
-    // ── Save sounds to GitHub (owner only) ──
     async function saveSoundsToGitHub(arr) {
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(arr, null, 2))));
       const res = await fetch(GH_API, {
@@ -892,8 +823,6 @@
       GH_SHA = data.content.sha;
     }
 
-    // ── Upload Modal ──
-    // ── Image preview in upload modal ──
     function previewImg(url) {
       const img    = document.getElementById('up-img-preview');
       const status = document.getElementById('up-img-status');
@@ -957,14 +886,6 @@
       }
     }
 
-    // ── Waveform bars ──
-    function generateWaveform(count) {
-      let b = '';
-      for (let i = 0; i < count; i++) b += `<div class="wv-bar" style="height:${20+Math.random()*80}%"></div>`;
-      return b;
-    }
-
-    // ── Render sound cards ──
     function renderSounds(list) {
       const grid  = document.getElementById('sounds-grid');
       const empty = document.getElementById('sounds-empty');
@@ -1020,7 +941,6 @@
       attachCursorEvents();
     }
 
-    // ── Delete sound (owner only) ──
     async function deleteSound(idx) {
       if (!isOwner) return;
       if (!confirm(`Delete "${SOUNDS[idx].name}"?`)) return;
@@ -1035,7 +955,6 @@
       }
     }
 
-    // ── Edit sound (owner only) ──
     function openEditModal(idx) {
       if (!isOwner) return;
       const s = SOUNDS[idx];
@@ -1087,7 +1006,6 @@
       img.onerror = () => img.style.display = 'none';
     }
 
-    // ── Playback (simulated progress + opens VoiceMod) ──
     let tickMap = {}, currentIdx = null;
 
     function stopAll(exceptIdx) {
@@ -1118,7 +1036,6 @@
         btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
         clearInterval(tickMap[idx]); currentIdx = null; return;
       }
-      // Open VoiceMod on play
       window.open(sound.voicemodUrl, '_blank');
       card.classList.add('playing');
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
@@ -1144,29 +1061,13 @@
       }, 50);
     }
 
-    function scrubSound(idx, e, el) {
-      const pct   = Math.max(0, Math.min(1, (e.clientX - el.getBoundingClientRect().left) / el.offsetWidth));
-      const sound = SOUNDS[idx], parts = sound.duration.split(':');
-      const total = parseInt(parts[0])*60 + parseInt(parts[1]);
-      const p = document.getElementById(`progress-${idx}`); if (p) p.style.width=(pct*100)+'%';
-      const t = document.getElementById(`time-cur-${idx}`);
-      if (t) { const m=Math.floor(pct*total/60), s=Math.floor(pct*total%60).toString().padStart(2,'0'); t.textContent=`${m}:${s}`; }
-    }
-
-    function setVolume() { /* future: real audio */ }
-
-    // ── Search ──
     function filterSounds() {
       const q = document.getElementById('sounds-search').value.toLowerCase().trim();
       renderSounds(q ? SOUNDS.filter(s => s.name.toLowerCase().includes(q)||s.category.toLowerCase().includes(q)||s.desc.toLowerCase().includes(q)) : SOUNDS);
     }
 
-    // Initial load from GitHub
     loadSoundsFromGitHub();
 
-    // ════════════════════════════════════════
-    // ── Tab Switching ──
-    // ════════════════════════════════════════
     const tabMap = ['home','features','updates','team','socials','sounds'];
 
     function switchTab(name) {
@@ -1178,7 +1079,6 @@
       attachCursorEvents();
     }
 
-    // ── Copy Loader ──
     function copyLoader() {
       const text = document.getElementById('loader-text').textContent;
       const btn  = document.querySelector('.loader-copy');
@@ -1193,7 +1093,6 @@
       });
     }
 
-    // ── Toast ──
     function showToast(msg) {
       const toast = document.getElementById('toast');
       if (msg) toast.textContent = msg;
@@ -1201,7 +1100,6 @@
       setTimeout(() => { toast.classList.remove('show'); toast.textContent = '✓  Copied to clipboard'; }, 2200);
     }
 
-    // ── Custom Cursor (desktop only) ──
     const cursor = document.getElementById('cursor');
     const glow   = document.getElementById('mouse-glow');
 
@@ -1225,7 +1123,6 @@
     attachCursorEvents();
   </script>
 
-  <!-- ── STARFIELD ── -->
   <script>
     (function () {
       const canvas = document.getElementById('starfield');
